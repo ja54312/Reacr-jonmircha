@@ -16,12 +16,12 @@ export default class Estado extends Component {
             contador:0,
         }
 
-        setInterval(()=>{
-            this.setState({
-                contador:this.state.contador +1
-            })
-        },1000);
-    }
+    //     setInterval(()=>{
+    //         this.setState({
+    //             contador:this.state.contador +1
+    //         })
+    //     },1000);
+     }
     render(){
         return(
             <div>
@@ -29,6 +29,6 @@ export default class Estado extends Component {
             <p>{this.state.contador}</p>
             <EstadoAHijo contadorHijo={this.state.contador}/>
             </div>
-        )
+        );
     }
 }
