@@ -17,7 +17,6 @@ export default function ContadorHooks(props) {
       </nav>
       <p>Contador de {props.titulo}</p>
       <h3>{contador}</h3>
-      <input type="text" />
     </>
   );
 }
