@@ -1,15 +1,15 @@
-import React from 'react';
-import CrudApp from './components/CrudApp';
-
-
+import { useState ,useEffect } from "react";
+import React from 'react'
+import CrudApp from './components/CrudApp'
+//import "./App.css";
 
 
 function App() {
   return (
-    <>
-      <h1>Ejercicio React</h1>
-      <CrudApp/>  
-    </>
+    <div className="App">
+        <h1>Ejercicios con React</h1>
+        <CrudApp/>
+    </div>
   );
 }
 
