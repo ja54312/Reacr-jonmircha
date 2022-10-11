@@ -6,9 +6,17 @@ const initialForm ={
     id:null
 }
 
-const CrudForm = ({createData,updateData,datatoEdit,setDatatoEdit}) => {
+const CrudForm = ({createData,updateData,datatoEdit,setDataToEdit}) => {
 
     const [form,setForm] = useState(initialForm)
+
+    useEffect(()=>{
+        if(datatoEdit){
+            setForm(datatoEdit)
+        }else{
+            setForm(initialForm)
+        }
+    },[datatoEdit])
 
     const handleChange = (e) =>{
         setForm({
@@ -34,12 +42,12 @@ const CrudForm = ({createData,updateData,datatoEdit,setDatatoEdit}) => {
 
     const handleReset = (e) =>{
         setForm(initialForm)
-        setDatatoEdit(null)
+        setDataToEdit(null)
     }
 
   return (
     <div>
-        <h3>Agregar</h3>
+        <h3>{datatoEdit?"Editar":"Agregar"}</h3>
         <form onSubmit={handleSubmit}>
             <input 
                 type="text" 

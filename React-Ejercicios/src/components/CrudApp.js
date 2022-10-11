@@ -32,13 +32,16 @@ const initialDB = [
 
 const CrudApp = () => {
   const [db, setDb] = useState(initialDB);
-  const [datatoEdit, setDatatoEdit] = useState(null);
+  const [datatoEdit, setDataToEdit] = useState(null);
 
   const createData = (data) => {
     data.id = Date.now();
     setDb([...db, data]);
   };
-  const updateData = (data) => {};
+  const updateData = (data) => {
+    let newData = db.map(el => el.id === data.id?data:el)
+    setDb(newData)
+  };
   const deleteData = (id) => {};
 
   return (
@@ -48,11 +51,11 @@ const CrudApp = () => {
         createData={createData}
         updateData={updateData}
         datatoEdit={datatoEdit}
-        setDatatoEdit={setDatatoEdit}
+        setDataToEdit={setDataToEdit}
       />
       <CrudTable
         data={db}
-        setDatatoEdit={setDatatoEdit}
+        setDataToEdit={setDataToEdit}
         deleteData={deleteData}
       />
     </div>
