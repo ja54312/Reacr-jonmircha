@@ -11,40 +11,79 @@ const CrudApi = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-
   let url = "http://localhost:5000/santos";
 
   useEffect(() => {
     setLoading(true);
-    helpHttp().get(url).then((res) => {
-      if (!res.err) {
-        setDb(res);
-        setError(null);
-      } else {
-        setDb(null);
-        setError(res);
-      }
-    });
-    setLoading(false);
+    helpHttp()
+      .get(url)
+      .then((res) => {
+        //console.log(res);
+        if (!res.err) {
+          setDb(res);
+          setError(null);
+        } else {
+          setDb(null);
+          setError(res);
+        }
+        setLoading(false);
+      });
   }, [url]);
 
   const createData = (data) => {
     data.id = Date.now();
-    setDb([...db, data]);
+    let options = {
+      body: data,
+      headers: { "content-type": "application/json" },
+    };
+    helpHttp()
+      .post(url, options)
+      .then((res) => {
+        console.log(res);
+        if (!res.err) {
+          setDb(...db, res);
+        } else {
+          setError(res);
+        }
+      });
   };
+
   const updateData = (data) => {
-    let newData = db.map((el) => (el.id === data.id ? data : el));
-    setDb(newData);
+    let endpoint = `${url}/${data.id}`
+    let options = {
+      body: data,
+      headers: { "content-type": "application/json" },
+    };
+    helpHttp()
+      .put(endpoint, options)
+      .then((res) => {
+        //console.log(res);
+        if (!res.err) {
+          let newData = db.map((el)=>(el.id === data.id?data:el))
+          setDb(newData);
+        } else {
+          setError(res);
+        }
+      });
   };
+
   const deleteData = (id) => {
     let isDelete = window.confirm(
       `¿Estas seguro de eliminar el registro con el ${id}?`
     );
     if (isDelete) {
-      let newData = db.filter((el) => el.id !== id);
-      setDb(newData);
-    } else {
-      return;
+      let endpoint = `${url}/${id}`
+      let options = {
+        headers: { "content-type": "application/json" },
+      };
+      helpHttp().del(endpoint,options).then(res =>{
+        if (!res.err) {
+          let newData = db.filter((el)=>el.id !== id)
+          setDb(newData);
+        } else {
+          setError(res);
+        }
+      })
     }
   };
 
