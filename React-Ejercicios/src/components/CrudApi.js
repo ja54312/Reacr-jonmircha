@@ -28,7 +28,7 @@ const CrudApi = () => {
         }
         setLoading(false);
       });
-  }, [url]);
+  }, [url]); 
 
   const createData = (data) => {
     data.id = Date.now();
